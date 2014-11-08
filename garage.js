@@ -1,21 +1,21 @@
-var appLocal = (function(){
+var garage = (function(){
 
 	if(typeof(Storage) == "undefined") {
 		console.log('Sorry! No Web Storage support..')
    		return false; 
 	} 
 	
-	var garage = window.localStorage;
+	var parking = window.localStorage;
 
 	var storageKey = 'appLocal';
-	var local = garage.getItem(storageKey);
+	var local = parking.getItem(storageKey);
 	local = (local) ? local : {};
 	local = (local instanceof Object) ? local : JSON.parse(local);
 
-	var appLocal = {	
+	var garage = {	
 		save:function(key, val){
 			local[key] = val;
-			garage.setItem(storageKey,  JSON.stringify(local));
+			parking.setItem(storageKey,  JSON.stringify(local));
 		},
 
 		get:function(key, defaultVal){
@@ -31,23 +31,23 @@ var appLocal = (function(){
 
 		clear:function(key){
 			delete local[key]
-			garage.setItem(storageKey, JSON.stringify(local));
+			parking.setItem(storageKey, JSON.stringify(local));
 		},
 
 		clearAll:function(){
 			local = {};
-			garage.setItem(storageKey, JSON.stringify(local));
+			parking.setItem(storageKey, JSON.stringify(local));
 		},
 		setKey: function(key){
 			key = (key) ? key : false;
 			if(key){
 				storageKey = key;//set new key
-				garage.clear();//clear anything already stored
-				garage.setItem(storageKey, JSON.stringify(local));//store data in new key
+				parking.clear();//clear anything already stored
+				parking.setItem(storageKey, JSON.stringify(local));//store data in new key
 			}
 		}
 	};
 
-	return appLocal;
+	return garage;
 
 })();
