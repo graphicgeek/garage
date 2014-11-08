@@ -110,8 +110,4 @@ garage.get('myObject');
 
 * set to 'local' to use the localStorage method. Stored value will be saved until deleted, until the user clears their browser's cache
 * set to 'session' to use the sessionStorage method. Stored value will be saved until the browser or the tab is closed
-<<<<<<< HEAD
 * Only 'local' and 'session' will be accepted. If you pass another value, 'local' will be used.
-=======
-* Only 'local' and 'session' will be accepted. If you pass another value, 'local' will be used.
->>>>>>> 841732b30bc8e352e10645285062b9000887c480
