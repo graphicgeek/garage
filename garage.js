@@ -22,16 +22,18 @@ var garage = (function(){
 		return method;
 	}
 
+	console.log(window.localStorage.getItem('parkingGarage'));
 	var box = {
 		key: 'parkingGarage',
-		local: localStorage.getItem(this.key),//stored until user clears cache
-		session: sessionStorage.getItem(this.key),//stored until tab is closed,
 		save: function(method){
 			var newVal = JSON.stringify(this[getValidMethod(method)]);
+			console.log(newVal);
 			if(method == 'session'){
 				sessionStorage.setItem(box.key,  newVal);
+				console.log(sessionStorage.getItem(box.key));
 			} else {
 				localStorage.setItem(box.key,  newVal);
+				console.log(localStorage.getItem(box.key));
 			}
 		},//save
 		newKey: function(key){
@@ -47,15 +49,24 @@ var garage = (function(){
 				localStorage.setItem(key, JSON.stringify(this.local));
 				sessionStorage.setItem(key, JSON.stringify(this.session));
 			}//if
-		}//newKey
+		},//newKey
+		init: function(){
+			this.local = localStorage.getItem(this.key);//stored until user clears cache
+			this.session = sessionStorage.getItem(this.key);//stored until tab is closed
+			this.local = (this.local) ? this.local : {};
+			this.session = (this.session) ? this.session : {};
+			this.local = (this.local instanceof Object) ? this.local : JSON.parse(this.local);
+			this.session = (this.session instanceof Object) ? this.session : JSON.parse(this.session);
+		}
 	};//box
 
-	box.local = (box.local) ? box.local : {};
-	box.session = (box.session) ? box.session : {};
-	box.local = (box.local instanceof Object) ? box.local : JSON.parse(box.local);
-	box.session = (box.session instanceof Object) ? box.session : JSON.parse(box.session);	
+	box.init();
 
 	function getVar(key, method){
+		console.log(box);
+		console.log(box.local);
+		console.log(getValidMethod(method));
+		console.log(box[getValidMethod(method)]);
 		return box[getValidMethod(method)][key];
 	}
 
@@ -70,6 +81,7 @@ var garage = (function(){
 			defaultVal = (defaultVal) ? defaultVal : false;
 
 			var val = getVar(key, method);
+			console.log(val);
 			val = (val) ? val : defaultVal;
 			return val;
 		},

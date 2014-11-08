@@ -8,18 +8,36 @@
 <script type="text/javascript" charset="utf-8" src="garage.js"></script>
 
 <script type="text/javascript">
-	garage.clearAll();
-	garage.save('testKey', 'testVal');
-	
-	console.log(garage.get('testKey'));
-	console.log(garage.getAll());
+//
+//console.log(tag);
+window.onload = function() {
+	var tag = document.getElementById('stored');
+	var button = document.getElementById('save');
+	var input = document.getElementById('input');
 
-	for (var key in localStorage){
-		console.log(key)
-	}
+	button.onclick=function(){
+		var val = input.value;
+		tag.innerHTML = input.value;
+		garage.save('test', input.value);
+		console.log(garage.get('test'));
+	};
+
+	tag.innerHTML = garage.get('test', 'Default Value');
+
+	console.log(garage.getAll());
+};
+
+//
+
 </script>
 
 </head>
 
-<body></body>
+<body>
+	<h1 id="stored"></h1>
+	<input type="text" id="input"/>
+	<button type="button" id="save">save</button>
+
+
+</body>
 </html>

@@ -31,13 +31,17 @@ See [Storage Methods](https://github.com/graphicgeek/garage/blob/master/README.m
 
 ========
 
-###garage.get(key, method))###
+###garage.get(key, default, method))###
 
 retrieve a variable
 
 **key: string**
 
 the variable you want to retrieve
+
+**default: string or object**
+
+Value to be returned if nothing has been stored for this key yet
 
 **method: string** (default: 'local')
 
