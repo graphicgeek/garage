@@ -8,26 +8,26 @@
 <script type="text/javascript" charset="utf-8" src="garage.js"></script>
 
 <script type="text/javascript">
-//
-//console.log(tag);
+
 window.onload = function() {
 	var tag = document.getElementById('stored');
-	var button = document.getElementById('save');
+	var save = document.getElementById('save');
+	var clear = document.getElementById('clear');
 	var input = document.getElementById('input');
 
-	button.onclick=function(){
+	save.onclick=function(){
 		var val = input.value;
 		tag.innerHTML = input.value;
 		garage.save('test', input.value);
-		console.log(garage.get('test'));
+	};
+
+	clear.onclick=function(){
+		garage.clearAll();
+		tag.innerHTML = garage.get('test', 'Default Value');
 	};
 
 	tag.innerHTML = garage.get('test', 'Default Value');
-
-	console.log(garage.getAll());
 };
-
-//
 
 </script>
 
@@ -37,7 +37,6 @@ window.onload = function() {
 	<h1 id="stored"></h1>
 	<input type="text" id="input"/>
 	<button type="button" id="save">save</button>
-
-
+	<button type="button" id="clear">clear</button>
 </body>
 </html>

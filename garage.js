@@ -22,18 +22,14 @@ var garage = (function(){
 		return method;
 	}
 
-	console.log(window.localStorage.getItem('parkingGarage'));
 	var box = {
 		key: 'parkingGarage',
 		save: function(method){
 			var newVal = JSON.stringify(this[getValidMethod(method)]);
-			console.log(newVal);
 			if(method == 'session'){
 				sessionStorage.setItem(box.key,  newVal);
-				console.log(sessionStorage.getItem(box.key));
 			} else {
 				localStorage.setItem(box.key,  newVal);
-				console.log(localStorage.getItem(box.key));
 			}
 		},//save
 		newKey: function(key){
@@ -63,10 +59,6 @@ var garage = (function(){
 	box.init();
 
 	function getVar(key, method){
-		console.log(box);
-		console.log(box.local);
-		console.log(getValidMethod(method));
-		console.log(box[getValidMethod(method)]);
 		return box[getValidMethod(method)][key];
 	}
 
@@ -81,7 +73,6 @@ var garage = (function(){
 			defaultVal = (defaultVal) ? defaultVal : false;
 
 			var val = getVar(key, method);
-			console.log(val);
 			val = (val) ? val : defaultVal;
 			return val;
 		},
