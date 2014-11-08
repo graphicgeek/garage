@@ -103,6 +103,10 @@ garage.save('myObject', myObject);
 //retrieve
 garage.get('fruit');
 garage.get('myObject');
+
+//delete
+garage.clear('fruit');
+garage.clear('myObject');
 ```
 
 ========
