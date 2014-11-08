@@ -21,8 +21,7 @@ the name of the variable you want to store
 
 the variable you want to store
 
-```
-#!javascript
+```javascript
 garage.save('fruit', 'orange');
 
 //saving an object
