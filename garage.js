@@ -1,3 +1,6 @@
+/*
+For documentation see: https://github.com/graphicgeek/garage
+*/
 var garage = (function(){
 
 	if(typeof(Storage) == "undefined") {
