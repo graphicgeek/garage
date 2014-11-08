@@ -3,15 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 
-	<title>Local.js Demo</title>
+	<title>garage.js Demo</title>
     
-<script type="text/javascript" charset="utf-8" src="local.js"></script>
+<script type="text/javascript" charset="utf-8" src="garage.js"></script>
 
 <script type="text/javascript">
-	//window.localStorage.clear();
-	appLocal.save('test', 'myTest');
-	console.log(appLocal.get('test'));
-	console.log(appLocal.getAll());
+	garage.clearAll();
+	garage.save('testKey', 'testVal');
+	
+	console.log(garage.get('testKey'));
+	console.log(garage.getAll());
+
+	for (var key in localStorage){
+		console.log(key)
+	}
 </script>
 
 </head>
