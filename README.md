@@ -31,7 +31,7 @@ See [Storage Methods](https://github.com/graphicgeek/garage/blob/master/README.m
 
 ========
 
-###garage.get(key, default, method))###
+###garage.get(key, default, method)###
 
 retrieve a variable
 
@@ -49,7 +49,7 @@ Type of storage used when variable was stored, local or session.
 
 ========
 
-###garage.getAll(method))###
+###garage.getAll(method)###
 
 retrieve an object containing all variables stored with a given storage method
 
@@ -57,7 +57,7 @@ retrieve an object containing all variables stored with a given storage method
 
 ========
 
-###garage.clear(key, method))###
+###garage.clear(key, method)###
 
 delete a stored variable
 
@@ -71,13 +71,13 @@ Type of storage used when variable was stored, local or session.
 
 ========
 
-###garage.clearAll())###
+###garage.clearAll()###
 
 Remove all stored variables
 
 ========
 
-###garage.setKey(key))###
+###garage.setKey(key)###
 
 Garage stores everything in one JSON object under one "key". You would only need to change this if, for some reason, you had another javascript that was also using this key to store and retrieve data from localStorage.
 
@@ -85,7 +85,7 @@ Garage stores everything in one JSON object under one "key". You would only need
 
 ========
 
-###garage.setDefaultMethod(method))###
+###garage.setDefaultMethod(method)###
 
 change the default method of storage
 
