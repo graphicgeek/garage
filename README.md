@@ -11,7 +11,7 @@ Simple wrapper for using HTML5 local storage
 
 ##Methods##
 
-###garage.save(key, value, method)###
+###garage.set(key, value)###
 
 save a variable
 
@@ -23,15 +23,9 @@ the name of the variable you want to store
 
 the variable you want to store
 
-**method: string** (default: 'local')
-
-Type of storage to use, local or session.
-
-See [Storage Methods](https://github.com/graphicgeek/garage/blob/master/README.md#storage-methods)
-
 ========
 
-###garage.get(key, default, method)###
+###garage.get(key, default)###
 
 retrieve a variable
 
@@ -43,31 +37,15 @@ the variable you want to retrieve
 
 Value to be returned if nothing has been stored for this key yet
 
-**method: string** (default: 'local')
-
-Type of storage used when variable was stored, local or session.
-
 ========
 
-###garage.getAll(method)###
-
-retrieve an object containing all variables stored with a given storage method
-
-**method: string** (default: 'local')
-
-========
-
-###garage.clear(key, method)###
+###garage.clear(key)###
 
 delete a stored variable
 
 **key: string**
 
 the variable you want to delete
-
-**method: string** (default: 'local')
-
-Type of storage used when variable was stored, local or session.
 
 ========
 
@@ -85,13 +63,15 @@ Garage stores everything in one JSON object under one "key". You would only need
 
 ========
 
-###garage.setDefaultMethod(method)###
+###garage.setStorageMethod(method)###
 
 change the default method of storage
 
 **method: string** (default: 'local')
 
 Can only be set to 'local' or 'session'
+
+See [Storage Methods](https://github.com/graphicgeek/garage/blob/master/README.md#storage-methods)
 
 ####Examples:####
 ```javascript

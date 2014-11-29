@@ -37,10 +37,6 @@ For documentation see: https://github.com/graphicgeek/garage
 			return this;
 		};
 
-		this.getStorageMethod = function() {
-			return this.storageMethod
-		};
-
 		this.get = function(key, defaultVal) {
 			defaultVal = (defaultVal) ? defaultVal : false;
 
@@ -74,8 +70,15 @@ For documentation see: https://github.com/graphicgeek/garage
 				sessionStorage.setItem(this.defaultKey, JSON.stringify(this.data));
 			}
 		};
+		
+		if(this.storageMethod == 'local'){
+			var data = localStorage.getItem(this.defaultKey);
+		}
 
-		var data = localStorage.getItem(this.defaultKey);
+		if(this.storageMethod == 'session'){
+			var data = sessionStorage.getItem(this.defaultKey);
+		}
+
 		if (data) {
 			this.data = JSON.parse(data);
 		}
