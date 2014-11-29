@@ -1,109 +1,67 @@
 /*
 For documentation see: https://github.com/graphicgeek/garage
 */
-var garage = (function(){
-
-	if(typeof(Storage) == "undefined") {
-		console.log('Sorry! No Web Storage support..');
-   		return false; 
-	} 
-	
-	var defaultMethod = 'local';
-
-	function isValidMethod(method){
-		if(method == 'local' || method == 'session'){
-			return true;
+(function(){
+	function Garage() {
+		if(typeof(Storage) == "undefined") {
+			console.log('Garage: localStorage is not supported.');
+			return false;
 		}
-		return false;
-	}
 
-	function getValidMethod(method){
-		method = isValidMethod(method) ? method : defaultMethod;
-		return method;
-	}
+		this.data = {};
+		this.storageMethod = 'local';
+		this.defaultKey = 'parkingGarage';
 
-	var box = {
-		key: 'parkingGarage',
-		save: function(method){
-			var newVal = JSON.stringify(this[getValidMethod(method)]);
-			if(method == 'session'){
-				sessionStorage.setItem(box.key,  newVal);
-			} else {
-				localStorage.setItem(box.key,  newVal);
+		this.validateStorageMethod = function(method) {
+			var validMethods = [
+					'local',
+					'session'
+				],
+				valid = false,
+				method = method.toLowerCase;
+
+			for (i = 0; i < validMethods.length; i++) {
+				if (mothod == validMethods[i]) {
+					valid = true;
+				}
 			}
-		},//save
-		newKey: function(key){
-			key = (key) ? key : false;
-			if(key){
-				this.key = key;//set new key
 
-				//clear existing data
-				localStorage.clear();
-				sessionStorage.clear();
+			return valid;
+		};
 
-				//store data in new key
-				localStorage.setItem(key, JSON.stringify(this.local));
-				sessionStorage.setItem(key, JSON.stringify(this.session));
-			}//if
-		},//newKey
-		init: function(){
-			this.local = localStorage.getItem(this.key);//stored until user clears cache
-			this.session = sessionStorage.getItem(this.key);//stored until tab is closed
-			this.local = (this.local) ? this.local : {};
-			this.session = (this.session) ? this.session : {};
-			this.local = (this.local instanceof Object) ? this.local : JSON.parse(this.local);
-			this.session = (this.session instanceof Object) ? this.session : JSON.parse(this.session);
+		this.setStorageMethod = function(newMethod) {
+			if (this.validateStorageMethod(newMethod)) {
+				this.storageMethod = newMethod;
+			}
+		};
+
+		this.getStorageMethod = function() {
+			return this.storageMethod
+		};
+
+		this.get = function(key) {
+			return this.data[key];
+		};
+
+		this.set = function(key, value) {
+			this.data[key] = value;
+		};
+
+		this.clear = function(key) {
+			this.data[key] = null;
+		};
+
+		this.save = function() {
+			localStorage.setItem(this.defaultKey, JSON.stringify(this.data));
+		};
+
+		var data = localStorage.getItem(this.defaultKey);
+		if (data) {
+			this.data = JSON.parse(data);
 		}
-	};//box
-
-	box.init();
-
-	function getVar(key, method){
-		return box[getValidMethod(method)][key];
 	}
 
-	var garage = {	
-		save:function(key, val, method){
-			method = getValidMethod(method);
-			box[method][key] = val;
-			box.save(method);
-		},
-
-		get:function(key, defaultVal, method){
-			defaultVal = (defaultVal) ? defaultVal : false;
-
-			var val = getVar(key, method);
-			val = (val) ? val : defaultVal;
-			return val;
-		},
-
-		getAll:function(method){
-			var retVal = box[getValidMethod(method)];
- 			return (retVal instanceof Object) ? retVal : JSON.parse(retVal);
-		},
-
-		clear:function(key, method){
-			method = getValidMethod(method);
-			delete box[method][key];
-			box.save(method);
-		},
-
-		clearAll:function(method){
-			box.local = {};
-			box.session = {};
-			localStorage.clear();
-			sessionStorage.clear();
-		},
-
-		setKey: function(key){
-			box.newKey(key);
-		},
-
-		setDefaultMethod: function(method){
-			defaultMethod = getValidMethod(method);
-		}
-	};
-
-	return garage;
-
+	if (!window.garage) {
+		window.garage = new Garage();
+	}
 })();
