@@ -59,6 +59,12 @@ For documentation see: https://github.com/graphicgeek/garage
 			this.data[key] = null;
 		};
 
+		this.clearAll = function(){
+			this.data = {};
+			localStorage.clear();
+			sessionStorage.clear();			
+		};
+
 		this.save = function() {
 			if(this.storageMethod == 'local'){
 				localStorage.setItem(this.defaultKey, JSON.stringify(this.data));
