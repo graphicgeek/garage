@@ -11,6 +11,7 @@ For documentation see: https://github.com/graphicgeek/garage
 		this.data = {};
 		this.storageMethod = 'local';
 		this.defaultKey = 'parkingGarage';
+		this.autoSave = true;
 
 		this.validateStorageMethod = function(method) {
 			var validMethods = [
@@ -33,18 +34,25 @@ For documentation see: https://github.com/graphicgeek/garage
 			if (this.validateStorageMethod(newMethod)) {
 				this.storageMethod = newMethod;
 			}
+			return this;
 		};
 
 		this.getStorageMethod = function() {
 			return this.storageMethod
 		};
 
-		this.get = function(key) {
-			return this.data[key];
+		this.get = function(key, defaultVal) {
+			defaultVal = (defaultVal) ? defaultVal : false;
+
+			var val = this.data[key];
+			val = (val) ? val : defaultVal;
+			return val;
 		};
 
 		this.set = function(key, value) {
 			this.data[key] = value;
+			if(this.autoSave){ this.save(); }
+			return this;
 		};
 
 		this.clear = function(key) {
