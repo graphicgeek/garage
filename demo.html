@@ -18,15 +18,15 @@ window.onload = function() {
 	save.onclick=function(){
 		var val = input.value;
 		tag.innerHTML = input.value;
-		garage.set('test', input.value);
+		garage.set('testVal', input.value);
 	};
 
 	clear.onclick=function(){
 		garage.clearAll();
-		tag.innerHTML = garage.get('test', 'Default Value');
+		tag.innerHTML = garage.get('testVal', 'Default Value');
 	};
 
-	tag.innerHTML = garage.get('test', 'Default Value');
+	tag.innerHTML = garage.get('testVal', 'Default Value');
 };
 
 </script>

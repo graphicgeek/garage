@@ -22,7 +22,7 @@ For documentation see: https://github.com/graphicgeek/garage
 				method = method.toLowerCase;
 
 			for (i = 0; i < validMethods.length; i++) {
-				if (mothod == validMethods[i]) {
+				if (method == validMethods[i]) {
 					valid = true;
 				}
 			}
@@ -60,7 +60,13 @@ For documentation see: https://github.com/graphicgeek/garage
 		};
 
 		this.save = function() {
-			localStorage.setItem(this.defaultKey, JSON.stringify(this.data));
+			if(this.storageMethod == 'local'){
+				localStorage.setItem(this.defaultKey, JSON.stringify(this.data));
+			}
+
+			if(this.storageMethod == 'session'){
+				sessionStorage.setItem(this.defaultKey, JSON.stringify(this.data));
+			}
 		};
 
 		var data = localStorage.getItem(this.defaultKey);
