@@ -1,0 +1,16 @@
+{
+    
+    "name": "Garage",
+    "description": "Simple wrapper for using HTML5 local storage",
+    "version": "1.0",
+    "category": "utilities",
+    "config":{
+        "details":{
+            "Language": "English",
+            "Price": "Free",
+            "Restrictions": "None",
+            "TOS":"http://www.cloudflare.com/terms",
+            "has_js": true
+        }, 
+    }
+}
