@@ -1,5 +1,4 @@
 {
-    
     "name": "Garage",
     "description": "Simple wrapper for using HTML5 local storage",
     "version": "1.0",
