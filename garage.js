@@ -13,13 +13,18 @@ For documentation see: https://github.com/graphicgeek/garage
 		this.defaultKey = 'parkingGarage';
 		this.autoSave = true;
 
+		var box = {
+			local: localStorage,
+			session: sessionStorage
+		};
+
 		this.validateStorageMethod = function(method) {
 			var validMethods = [
 					'local',
 					'session'
 				],
 				valid = false,
-				method = method.toLowerCase;
+				method = method.toLowerCase();
 
 			for (i = 0; i < validMethods.length; i++) {
 				if (method == validMethods[i]) {
@@ -33,51 +38,44 @@ For documentation see: https://github.com/graphicgeek/garage
 		this.setStorageMethod = function(newMethod) {
 			if (this.validateStorageMethod(newMethod)) {
 				this.storageMethod = newMethod;
+				var data = box[newMethod].getItem(this.defaultKey);
+				this.data = JSON.parse(data);
 			}
 			return this;
 		};
 
 		this.get = function(key, defaultVal) {
 			defaultVal = (defaultVal) ? defaultVal : false;
-
-			var val = this.data[key];
+			var val = this.data[key];			
 			val = (val) ? val : defaultVal;
 			return val;
 		};
 
 		this.set = function(key, value) {
 			this.data[key] = value;
+			console.log(this.data);
 			if(this.autoSave){ this.save(); }
 			return this;
 		};
 
 		this.clear = function(key) {
 			this.data[key] = null;
+			return this;
 		};
 
 		this.clearAll = function(){
 			this.data = {};
-			localStorage.clear();
-			sessionStorage.clear();			
+			this.save();	
+			return this;		
 		};
 
 		this.save = function() {
-			if(this.storageMethod == 'local'){
-				localStorage.setItem(this.defaultKey, JSON.stringify(this.data));
-			}
-
-			if(this.storageMethod == 'session'){
-				sessionStorage.setItem(this.defaultKey, JSON.stringify(this.data));
-			}
+			console.log('saving '+ this.storageMethod);
+			box[this.storageMethod].setItem(this.defaultKey, JSON.stringify(this.data));
+			return this;
 		};
 		
-		if(this.storageMethod == 'local'){
-			var data = localStorage.getItem(this.defaultKey);
-		}
-
-		if(this.storageMethod == 'session'){
-			var data = sessionStorage.getItem(this.defaultKey);
-		}
+		var data = box[this.storageMethod].getItem(this.defaultKey);
 
 		if (data) {
 			this.data = JSON.parse(data);

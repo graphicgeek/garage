@@ -8,25 +8,47 @@
 <script type="text/javascript" charset="utf-8" src="garage.js"></script>
 
 <script type="text/javascript">
+var sessionGarage = garage;
+sessionGarage.setStorageMethod('session');
 
 window.onload = function() {
-	var tag = document.getElementById('stored');
-	var save = document.getElementById('save');
-	var clear = document.getElementById('clear');
-	var input = document.getElementById('input');
 
-	save.onclick=function(){
-		var val = input.value;
-		tag.innerHTML = input.value;
-		garage.set('testVal', input.value);
+	var local_tag = document.getElementById('local_stored');
+	var local_save = document.getElementById('local_save');
+	var local_local_clear = document.getElementById('local_clear');
+	var local_input = document.getElementById('local_input');
+
+	var session_tag = document.getElementById('session_stored');
+	var session_save = document.getElementById('session_save');
+	var session_clear = document.getElementById('session_clear');
+	var session_input = document.getElementById('session_input');	
+	
+
+	local_save.onclick=function(){
+		var val = local_input.value;
+		local_tag.innerHTML = val;
+		garage.set('testVal', val);
 	};
 
-	clear.onclick=function(){
+	local_clear.onclick=function(){
 		garage.clearAll();
-		tag.innerHTML = garage.get('testVal', 'Default Value');
+		local_tag.innerHTML = garage.get('testVal', 'Default Value');
 	};
 
-	tag.innerHTML = garage.get('testVal', 'Default Value');
+	session_save.onclick=function(){
+		var val = session_input.value;
+		session_tag.innerHTML = val;
+		sessionGarage.set('testVal', val);
+		console.log(val);
+	};
+
+	session_clear.onclick=function(){
+		sessionGarage.clearAll();
+		session_tag.innerHTML = sessionGarage.get('testVal', 'Default Value');
+	};
+
+	local_tag.innerHTML = garage.get('testVal', 'Default Value');
+	session_tag.innerHTML = sessionGarage.get('testVal', 'Default Value');
 };
 
 </script>
@@ -34,9 +56,20 @@ window.onload = function() {
 </head>
 
 <body>
-	<h1 id="stored"></h1>
-	<input type="text" id="input"/>
-	<button type="button" id="save">save</button>
-	<button type="button" id="clear">clear</button>
+	<div id="local_demo">
+		<h1>Local Demo</h1>
+		<h2 id="local_stored"></h2>
+		<input type="text" id="local_input"/>
+		<button type="button" id="local_save">save</button>
+		<button type="button" id="local_clear">clear</button>		
+	</div>
+	<div id="session_demo">
+		<h1>Session Demo</h1>
+		<h2 id="session_stored"></h2>
+		<input type="text" id="session_input"/>
+		<button type="button" id="session_save">save</button>
+		<button type="button" id="session_clear">clear</button>			
+	</div>
+
 </body>
 </html>
